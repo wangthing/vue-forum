@@ -1,30 +1,39 @@
 <template>
   <div id="app">
-    <Left></Left>
-  
-    <router-view/>
+    <Header></Header>
+    <Main></Main>
+    <Footer></Footer>
+    <!-- <router-view/> -->
   </div>
 </template>
 
 
 
 <script>
-import Left from './components/left'
+import Header from './components/header'
+import Main from './components/main'
+import Footer from './components/footer'
 export default {
   name: 'App',
   components:{
-    Left
+    Header,
+    Main,
+    Footer
   }
 }
 </script>
 
 <style>
+html,body{
+  height: 100%;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background-color: rgb(245, 245, 245)
+
 }
 </style>

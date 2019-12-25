@@ -6,9 +6,13 @@ import router from './router'
 // 引入样式重置
 import '../static/css/reset.css'
 // 引入Echarts
-import echarts from 'echarts'
-Vue.prototype.$echarts = echarts
+// import echarts from 'echarts'
+// Vue.prototype.$echarts = echarts
+/* wjp */
 
+import '../static/font-awesome-4.7.0/css/font-awesome.css'
+
+/* wjp */
 
 Vue.config.productionTip = false
 
