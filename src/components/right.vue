@@ -90,6 +90,7 @@ export default {
     /* 右侧图片广告 */
     #right{
         width: 25%;
+        margin-left: 12px;
     }
     .activity{
         width: 100%;
@@ -126,7 +127,6 @@ export default {
         justify-content: flex-start;
         align-items: center;
         flex-wrap: wrap;
-
         padding: 14px 10px;
         
     }

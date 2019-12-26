@@ -81,7 +81,7 @@ export default {
 
         },
         scrollGet (e) {
-            console.log(e.srcElement.scrollTop, e.target.scrollTop)
+            
         }
     },
     components:{

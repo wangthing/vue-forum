@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 // 引入样式重置
 import '../static/css/reset.css'
+import 'github-markdown-css';
+
 // 引入Echarts
 // import echarts from 'echarts'
 // Vue.prototype.$echarts = echarts

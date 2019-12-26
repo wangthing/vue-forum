@@ -3,25 +3,23 @@ import Router from 'vue-router'
 import bar from '@/components/bar'
 import pie from '@/components/pie'
 import left from '@/components/left'
+import detail from '@/components/detail'
+import main from '@/components/main'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'bar',
-      component: bar
+      path: '/detail',
+      name:'detail',
+      component:detail
+      
     },
     {
-      path: '/bar',
-      name: 'bar',
-      component: bar
-    },
-    {
-      path:'/pie',
-      name:"pie",
-      component: pie
+      path:'/',
+      name:"index",
+      component: main
     },
     {
       path:'/left',

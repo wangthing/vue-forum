@@ -59,6 +59,9 @@ export default {
         window.addEventListener('scroll', this.throttle(200,this.handleScroll) , true);  
 
     } ,
+    destroyed () {
+        window.removeEventListener('scroll', this.throttle(200,this.handleScroll) , true);  
+    } ,
     methods: {
         switchTopic:function (e) {
             let idx = e.target.dataset.index
@@ -67,16 +70,11 @@ export default {
             });
         },
         handleScroll (e) {
-            
-            
-            let scroll = top.pageYOffset 
-           
-           
+ 
+            let scroll = document.body.scrollTop || document.documentElement.scrollTop   
             
             let flag =  scroll - this.scrollHeight ;
             this.scrollHeight = window.pageYOffset;
-            console.log(flag);
-            
 
             if(flag>0){
                 this.slideOut = true
@@ -118,15 +116,24 @@ export default {
     #header{
          transition: .4s;
     }
-    #header:hover{
+    /* #header:hover{
         opacity: 1;
         transition: .8s;
-        z-index: 1024;
-    }
+        
+    } */
     #header.slideout{
-        opacity: 0;
-        transition: .8s;
-        z-index: 1024;
+        animation: slideout .8s linear forwards;
+        
+    }
+    @keyframes slideout{
+        98%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 0;
+            visibility: hidden;
+            
+        }
     }
     .main-container{
         position: relative;

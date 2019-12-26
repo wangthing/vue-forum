@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Main></Main>
+    <router-view/>
     <Footer></Footer>
-    <!-- <router-view/> -->
+    <Login></Login>
   </div>
 </template>
 
@@ -13,12 +13,14 @@
 import Header from './components/header'
 import Main from './components/main'
 import Footer from './components/footer'
+import Login from './components/Login'
 export default {
   name: 'App',
   components:{
     Header,
     Main,
-    Footer
+    Footer,
+    Login
   }
 }
 </script>

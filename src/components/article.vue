@@ -2,22 +2,23 @@
     <div id="article">
         <div class="article-item" v-for="(item,index) in articles" :key="index">
             <div class="content">
+               
                 <div class="top">
                     <div class="author">
-                        <div class="avar"><img :src="item.avar" alt=""></div>
+                        <!-- <div class="avar"><img :src="item.avar" alt=""></div> -->
                         <div class="author-info">
-                            <h5 >{{item.nickname}}</h5>
-                            <h5 class="time">{{item.releasetime}}   阅读{{item.visit}}</h5>
+                            <h5 >{{item.nickname}}<span class="time">{{item.releasetime}}   阅读{{item.visit}}</span></h5>
+                            
                         </div>
                        
                     
                     </div>
                     <div class="follow">
-                         <span >关注</span>
+                         <span >详情</span>
                     </div>
                 </div>
                 <div class="bottom">
-                    <p>{{item.description}}</p>
+                    <a href="#/detail?id=32" target="_blank" >{{item.description}}</a>
                     <div class="">
                         <span>
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>{{" "+item.thumbup}}
@@ -43,132 +44,132 @@ export default {
                     releasetime:'6月22日 12:01',
                     visit:2452,
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                 {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     visit:2452,
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                 {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     visit:2452,
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                 {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     visit:2452,
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 },
                  {
                     title:'Drive.ai融资5000万吴恩达加入董事会',
                     releasetime:'6月22日 12:01',
                     nickname:'Closer',
+                    id:25,
                     thumbup:532,
                     comments:124,
                     visit:2452,
                     avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin,
-                    作为一个插件化方面的狂热研究者，在周末就迫不及待的下载了Virtualapk框架来进行研究，本篇博客带的……`
+                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
                 }
             ]
         }
@@ -188,6 +189,7 @@ export default {
          padding: 20px 20px;
          background-color: white;
          margin-top: 12px;
+         
     }
 /* 头部文章信息 */
     .article_info{
@@ -217,8 +219,9 @@ export default {
         flex-wrap: wrap;
     }
     
-    .author-info h5.time{
+    .author-info span.time{
         color: #909090;
+        margin-left: 20px;
         font-size: 12px;
     }
     .avar{
@@ -256,6 +259,9 @@ export default {
         margin: 12px 0;
           font-weight: bold;
     }
+    .bottom a{
+        color: rgb(77, 67, 67);
+    }
     .bottom>div{
         display: flex;
         justify-content: flex-start;
@@ -278,10 +284,9 @@ export default {
     .bottom>div>span:hover{
         background-color: rgb(225, 225, 225)
     }
-    .bottom p:hover{
+    .bottom a:hover{
         text-decoration: underline;
         color: black;
-        cursor: pointer;
-      
+        cursor: pointer; 
     }
 </style>
