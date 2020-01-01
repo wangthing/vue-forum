@@ -34,12 +34,30 @@ export default {
         }
     },
     mounted () {
-        this.htmlMd = require('../../static/cssMar.md');
-   
-        bus.$emit('getMdContent',this.$refs.md);
+        this.getArticleById()
     },
     methods: {
-        
+        getArticleById () {
+            var that = this
+            this.$http({
+                method:"GET",
+                url:`http://192.168.0.188:9001/article/`+ this.$route.query.id,
+                headers:{
+                    "Content-type":"application/json"
+                }
+            })
+            .then( (res) => {
+                
+                
+                
+                return new Promise(function (resolve,reject) {
+                    that.htmlMd = res.data.data.content;
+                    resolve()
+                }).then(function (){
+                    bus.$emit('getmd',that.$refs.md);
+                })
+            })
+        }
     },
     components: {
         
@@ -51,7 +69,7 @@ export default {
 <style scoped>
     
     #articleDetail{
-        width: 750px;
+        width: 700px;
         margin: 0 auto;
         padding: 16px 20px;
         background-color: #fff;

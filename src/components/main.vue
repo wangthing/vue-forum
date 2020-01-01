@@ -1,7 +1,7 @@
 <template>
     <div id="main">
         <div class="main-container">
-            <div class="left-nav" @scroll="scrollGet($event)" v-bind:style="{height:50*tags.length+'px'}">
+            <div class="left-nav" @scroll="scrollGet($event)" >
                 <ul class="left-nav-list">
                     <li v-for="(item,index) in tags" :key="index"  :class="tagsIndex==index?'active':''">
                         <a :href="item.href" :data-index="index"  @click="switchTags">{{item.name}}</a>
@@ -37,7 +37,9 @@ export default {
     name:'main',
     data () {
         return{
-            tags:[
+            tags:[],
+            /* 
+            [
                 {name:'热门',href:'#'},
                 {name:'牛人专区',href:'#'},
                 {name:'机器学习',href:'#'},
@@ -46,7 +48,10 @@ export default {
                 {name:'AndroidQ',href:'#'},
                 {name:'人工智能',href:'#'},
                 {name:'',href:'#'},
-            ],
+            ]
+            */
+
+
             tagsIndex:0,
             
             slideImages:[
@@ -72,7 +77,11 @@ export default {
         }
     },
     mounted () {
-
+        document.getElementById("catalog")&&(document.getElementById("catalog").style.display = "none")
+    },
+    created () {
+        this.getAllNavs()
+     
     },
     methods: {
         switchTags (e) {
@@ -82,7 +91,21 @@ export default {
         },
         scrollGet (e) {
             
+        },
+        getAllNavs () {
+            this.$http({
+                method:"GET",
+                url:"http://192.168.0.188:9001/column"
+            })
+            .then((result) => {
+                console.log(result); 
+                var list = result.data.data;
+                this.tags = list
+            }).catch((err) => {
+                
+            })
         }
+        
     },
     components:{
         swiper,
@@ -95,57 +118,66 @@ export default {
 
 <style scoped>
     #main{
-        max-width: 1300px;
+        max-width: 1000px;
         margin: 0 auto;
         margin-top: 60px;
     }
     .main-container{
-        width: 100%;
+        min-width: 960px;
+       
         display: flex;
         justify-content: space-between;
     }
     /* 左侧导航栏标签 */
     .left-nav-list li.active a{
-        background-color: #e64620;
-        
+        background-color: #007fff;
         color: white;
         cursor:default;
     }
     .left-nav-list li.active a:hover{
+        background-color: #007fff;
         font-size: inherit;
         color: white;
         box-shadow: 10px 10px 5px #888888;
     }
     .left-nav{
-        width: 160px;
+        background-color: white;
+        width: 125px;
+        margin-left: -150px;
         position: fixed;
         top: 150px;
+        
         z-index: 1024;
+        cursor: pointer;
     }
     .left-nav-list li{
         list-style: none;
         text-align: center;
         color: rgb(215, 215, 215);
         border-radius: 6px;
-        height: 50px;
+        height: 35px;
         overflow: hidden;
-        width: 100%;
-        line-height: 50px;
+        margin: 16px auto;
+        width: 80%;
+        font-size: 14px;
+        line-height: 35px;
     }
     .left-nav-list li a{
         display: inline-block;
+        color: #909090;
         height: 100%;
         width: 100%;
     }
     .left-nav-list li a:hover{
         color: blueviolet;
+        background-color: rgba(235, 213, 213, 0.6);
     }
     /* 左侧导航栏标签 */
 
 
     .middle-content{
-        max-width: 58%;
-        margin-left: 200px;
+        max-width: 700px;
+        /* margin-left: 200px; */
     }
     
 

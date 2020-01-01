@@ -8,12 +8,33 @@ module.exports = {
   dev: {
 
     // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {},
+   
+    assetsRoot: path.resolve(__dirname, "../dist"),
+    // 静态资源文件夹
+    assetsSubDirectory: "static",
+    // 发布路径
+    assetsPublicPath: "/",
+    // Various Dev Server settings
+    host: "localhost",
+    // dev-server监听的端口
+    port: 8080,
+    autoOpenBrowser: true,
+
+    proxyTable: {
+      
+      '/api': {
+        // target: 'https://www.easy-mock.com/mock/5d01cfb04b4e406118bae1f6/example/', //我实际开发的时候后台接口示例
+        target: 'http://192.168.0.188:9006', //对应自己的接口
+        changeOrigin: true, // 是否开启跨域
+        ws: true,
+        pathRewrite: {
+          '^/api':'/'
+        }
+      }
+    },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '192.168.0.175', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

@@ -8,6 +8,8 @@
 
 
 <script>
+
+import bus from '../assets/bus'
 export default {
     name:'backtop',
     data () {
@@ -28,7 +30,7 @@ export default {
                
                 that.scrollTop = document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed
                 if (that.scrollTop <= 0) {
-                   
+                    bus.$emit("arriveTop")
                     clearInterval(timer)
                 }
             }, 20)
@@ -49,7 +51,7 @@ export default {
                 that.btnFlag = false
             }
         },
-        // 节流函数
+        // 节流函数  在多次触发时，只在固定时间内执行一次
         throttle (delay,callback) {
             let pre = Date.now()
             return function () {

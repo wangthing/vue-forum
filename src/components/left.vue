@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <ul id="item">
-            <li v-for="item in menu" :key="item.index"><router-link :to="item.href">{{item.type}}</router-link></li>
+           <h1 @click="test">{{username?username:"还没有"}}</h1>
         </ul>
     </div>
 </template>
@@ -16,21 +16,32 @@ export default {
                { type:"柱状图",href:'bar'},
                {type:"饼状图",href:'pie'}
             ]
+
         }
-    }
+    },
+    mounted () {
+
+    },
+    methods:{
+        test () {
+            this.$store.dispatch("setValue",[{name:"username",value:"what's your name"}]).then(() => {
+                console.log("修改成功！");
+                alert("修改成功！")
+            },() => {
+                console.log("失败");
+                alert("修改失败")
+            })
+        }
+    },
+    computed: {
+        username () {
+            return this.$store.state.username
+        }
+    },
 }
 </script>
 <style scoped>
-    #app{
-        margin: 0;
-        height: 100vh;
-        width: 100px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        color: white;
-        background-color: rgb(215, 215, 215);
-    }
+    
     #app::after{
         content: ".";
         height: 0;

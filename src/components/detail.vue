@@ -2,11 +2,12 @@
     <div id="detail">
        
          <div class="container">
-             <Catalog></Catalog>
+             
              <ArticleDetail></ArticleDetail>
              <Right>
-                 
+              
              </Right>
+             
             
          </div>
         <Backtop></Backtop>
@@ -20,7 +21,7 @@ import Right from './right'
 import Header from './header'
 import Backtop from './backtop'
 import Footer from './footer'
-import Catalog from './catalog'
+
 
 
 // import VueMarkdown from 'vue-markdown'
@@ -43,7 +44,7 @@ export default {
         Right,
         ArticleDetail,
         Backtop,
-        Catalog,
+        
 
     }
 }
@@ -51,7 +52,7 @@ export default {
 
 <style scoped>
     .container{
-        max-width: 1100px;
+        max-width: 960px;
         margin: 40px auto;
         display: flex;
         justify-content: space-between;

@@ -34,12 +34,18 @@
                     查看更多
                 </a>
             </div>
+              
 
+        </div>
+        <div >
+            <Catalog>
+            </Catalog>
         </div>
     </div>
 </template>
 
 <script>
+import Catalog from './catalog'
 export default {
     name:'right',
     data () {
@@ -82,6 +88,9 @@ export default {
     methods: {
         
     },
+    components:{
+        Catalog
+    }
 
 }
 </script>
@@ -89,7 +98,7 @@ export default {
 <style scoped>
     /* 右侧图片广告 */
     #right{
-        width: 25%;
+        max-width: 300px;
         margin-left: 12px;
     }
     .activity{
@@ -99,7 +108,7 @@ export default {
         margin-bottom: 12px;
         width: 100%;
     }
-
+    
 
     /* 热门文章 */
     .hot-articles{

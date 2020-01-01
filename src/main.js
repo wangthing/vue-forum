@@ -2,18 +2,26 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
 import router from './router'
 // 引入样式重置
 import '../static/css/reset.css'
+import '../static/css/iconfont.css'
 import 'github-markdown-css';
 
 // 引入Echarts
 // import echarts from 'echarts'
-// Vue.prototype.$echarts = echarts
+
 /* wjp */
+import store from './store/store'
 
 import '../static/font-awesome-4.7.0/css/font-awesome.css'
-
+import axios from 'axios'
+axios.defaults.timeout = 5000 // 请求超时
+// axios.defaults.baseURL = '/api'  // api 即上面 vue.config.js 中配置的地址
+Vue.prototype.$http = axios
 /* wjp */
 
 Vue.config.productionTip = false
@@ -24,6 +32,10 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
+  mounted() {
+    
+  },
   template: '<App/>'
 })

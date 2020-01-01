@@ -1,5 +1,5 @@
 <template>
-    <div id="header" :class="{slideout:slideOut}">
+    <div id="header" :class="{slideouts:'test'}">
         <div class="main-container">
                 <header>
                 <div class="container">
@@ -10,7 +10,7 @@
                         <ul class="nav-list">
                             <li class="nav-class-list">
                                 <ul>
-                                    <li v-for="(item,index) in navs" :key="index" :data-index="index" :class="item.active" @click="switchTopic">{{item.name}}</li>
+                                    <li v-for="(item,index) in navs" :key="index" :data-index="index" :class="{active:selectIndex==index}" @click="switchTopic(index)"><router-link :to="item.route" >{{item.name}}</router-link></li>
                                    
                                 </ul>
                             </li>
@@ -18,15 +18,23 @@
                                 <input type="text " placeholder="搜索">
                                 <i class="fa fa-search" id="search-btn" aria-hidden="true"></i>
                             </li>
-                            <li class="user">
+                            <li class="user" v-show="!!getUserState">
                                 <ul>
+                                    <li class="new_post">
+                                        <button ><a href="#/newPost" target="blank">写文章</a></button>
+                                    </li>
                                     <li class="notation">
                                         <i class="fa fa-commenting" aria-hidden="true"></i>
                                     </li>
-                                    <li class="user-avar">
-                                        <img src="../../static/img/widget-photo.png" alt="用户头像">
+                                    <li class="user-avar" >
+                                        <a href="#/usercenter/12/" ><img src="../../static/img/widget-photo.png" alt="用户头像"></a>
                                     </li>
+                                    <!-- <li>{{getUserState}}</li> -->
                                 </ul>
+                            </li>
+                            <li class="user" v-show="!getUserState">
+                                <span><a href="#" @click="singin">登录·</a></span>
+                                <span><a href="#" @click="singup">注册</a></span>
                             </li>
                         </ul>
                     </div>
@@ -37,51 +45,67 @@
 </template>
 
 <script>
-
+import bus from '../assets/bus'
 export default {
+    
     name:"header",
     data () {
         return {
             navs:[
-                {name:'首页',active:'active'},
-                {name:'问答',active:''},
-                {name:'活动',active:''},
-                {name:'交友',active:''},
-                {name:'招聘',active:''},
-                 {name:'交友',active:''},
-                {name:'招聘',active:''},
+                {name:'首页',active:'active',route:"/"},
+                {name:'问答',active:'',route:"/question"},
+                {name:'活动',active:'',route:"/activity"},
+                {name:'吐槽',active:'',route:"/complain"},
+                
             ],
             scrollHeight:0,
-            slideOut:false
+            slideOut:false,
+            isLogin:this.getUserState,
+            stopScroll:false,
+            timer:null,
+            selectIndex:1
         }
+    },
+    created() {
+        
     },
     mounted () {
         window.addEventListener('scroll', this.throttle(200,this.handleScroll) , true);  
+            // 监控点击目录事件
+            bus.$on("arriveTop",() => {
+                setTimeout(() => {
+                    this.slideOut = true;
+                }, 100);
+            });
+
 
     } ,
     destroyed () {
         window.removeEventListener('scroll', this.throttle(200,this.handleScroll) , true);  
     } ,
     methods: {
-        switchTopic:function (e) {
-            let idx = e.target.dataset.index
-            this.navs.forEach((element,index) => {
-                index==idx?element.active="active": element.active="";
-            });
+        switchTopic:function (index) {
+            // let idx = e.target.dataset.index
+            this.selectIndex = index
         },
         handleScroll (e) {
- 
+            
             let scroll = document.body.scrollTop || document.documentElement.scrollTop   
             
             let flag =  scroll - this.scrollHeight ;
             this.scrollHeight = window.pageYOffset;
 
-            if(flag>0){
+            if(flag>50){
+                        
                 this.slideOut = true
-            }else if(flag<0){
-                this.slideOut = false
+
+            }else if (flag<-50) { //上滑
+                 
+                     this.slideOut = false
+
             }
         },
+        
         throttle (delay,callback) {
             let pre = Date.now();
             return function () {
@@ -94,6 +118,39 @@ export default {
                     pre = Date.now()
                 }
             }
+        },
+        singin () {
+            console.log(this.isLogin);
+            this.$store.commit("setValue",[
+                {
+                    name:"showLogin",
+                    value:true
+                },
+                {
+                    name:"loginOrRegister",
+                    value:true
+                }
+            ]);
+        },
+        singup () {
+            this.$store.commit("setValue",[
+               {
+                    name:"showLogin",
+                    value:true
+                },
+                {
+                    name:"loginOrRegister",
+                    value:false
+                }
+            ]);
+        }
+    },
+    computed: {
+        getStopHeader () {
+            return this.$store.state.stopHeader
+        },
+        getUserState () {
+            return this.$store.state.username
         }
     },
 }
@@ -122,9 +179,9 @@ export default {
         
     } */
     #header.slideout{
-        animation: slideout .8s linear forwards;
-        
+        animation: slideout .8s linear forwards; 
     }
+   
     @keyframes slideout{
         98%{
             opacity: 0;
@@ -159,11 +216,15 @@ export default {
     }
     
     /* 中间的分类  首页  交友 */
+    .nav-class-list ul a{
+        color: black;
+    }
     .nav-class-list ul{
         display:flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         margin:  0 12px;
+        
     }
     .nav-class-list ul li{
         margin:0 15px;
@@ -171,9 +232,9 @@ export default {
         cursor: pointer;
         font-weight: 500;
     }
-    .nav-class-list ul li.active{
+    .nav-class-list ul li.active a{
         font-weight: bold;
-        color: #e64620;
+        color: #e64620 !important;
     }
     /* 搜索框 */
     .search-input{
@@ -222,7 +283,7 @@ export default {
         justify-content: flex-end;
         align-items: center;
        
-        max-width: 120px;
+        min-width: 220px;
     }
     .user ul li{
         margin: 0 12px;
@@ -231,5 +292,27 @@ export default {
         border-radius: 12px;
         overflow: hidden;
     }
-    
+     .new_post{
+        background-color: rgb(7,119,231);
+        color: white;
+        width: 60px;
+        height: 30px;
+        padding: 2px 4px;
+        border-radius: 4px;
+    }
+    .new_post a{
+        color:white;
+    }
+    .new_post button{
+         background-color: rgb(7,119,231);
+         border: none;
+        outline: none;
+        transition: background-color .3s,color .3s;
+        cursor: pointer;
+        color: white;
+        font-size: 16px;
+        
+        line-height: 1;
+        height: 100%;
+    }
 </style>

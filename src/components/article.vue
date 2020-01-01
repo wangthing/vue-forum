@@ -7,23 +7,22 @@
                     <div class="author">
                         <!-- <div class="avar"><img :src="item.avar" alt=""></div> -->
                         <div class="author-info">
-                            <h5 >{{item.nickname}}<span class="time">{{item.releasetime}}   阅读{{item.visit}}</span></h5>
-                            
+                            <h5 >{{item.nickname?item.nickname:"林_小猫"}}<span class="time">{{item.createtime}}   阅读{{item.visit}}</span></h5>
                         </div>
                        
                     
                     </div>
                     <div class="follow">
-                         <span >详情</span>
+                         <a :href="'#/detail?id='+item.id" target="_blank">详情</a> 
                     </div>
                 </div>
                 <div class="bottom">
-                    <a href="#/detail?id=32" target="_blank" >{{item.description}}</a>
+                    <a :href="'#/detail?id='+item.id" target="_blank"  :data-id="item.id">{{item.title}}</a>
                     <div class="">
                         <span>
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>{{" "+item.thumbup}}
                         </span><span>
-                            <i class="fa fa-comments" aria-hidden="true"></i>{{" "+item.comments}}
+                            <i class="fa fa-comments" aria-hidden="true"></i>{{" "+item.comment}}
                         </span>
                         
                     </div>
@@ -38,147 +37,162 @@ export default {
     name:"article",
     data () {
         return{
-            articles:[
-                {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    visit:2452,
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    visit:2452,
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    visit:2452,
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    visit:2452,
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                },
-                 {
-                    title:'Drive.ai融资5000万吴恩达加入董事会',
-                    releasetime:'6月22日 12:01',
-                    nickname:'Closer',
-                    id:25,
-                    thumbup:532,
-                    comments:124,
-                    visit:2452,
-                    avar:'../../static/img/widget-widget-photo.png',
-                    description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-                }
-            ]
+            articles:[]
+            // articles:[
+            //     {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         visit:2452,
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //     {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         visit:2452,
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //     {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         visit:2452,
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //     {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         visit:2452,
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     },
+            //      {
+            //         title:'Drive.ai融资5000万吴恩达加入董事会',
+            //         releasetime:'6月22日 12:01',
+            //         nickname:'Closer',
+            //         id:25,
+            //         thumbup:532,
+            //         comments:124,
+            //         visit:2452,
+            //         avar:'../../static/img/widget-widget-photo.png',
+            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
+            //     }
+            // ]
         }
     },
     mounted () {
-
+       
+        this.getAllArticles()
     },
     methods: {
-        
+
+        getAllArticles () {
+            this.$http({
+                method:"GET",
+                url:"http://192.168.0.188:9001/article/search/1/10"
+            })
+            .then((res) => {
+                console.log(res.data.data.rows);
+                this.articles = res.data.data.rows
+                console.log(this.articles);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
     },
 
 }
@@ -189,7 +203,7 @@ export default {
          padding: 20px 20px;
          background-color: white;
          margin-top: 12px;
-         
+
     }
 /* 头部文章信息 */
     .article_info{
@@ -231,7 +245,7 @@ export default {
         overflow: hidden;
         margin-right: 12px;
     }
-    .follow span{
+    .follow a{
         display: inline-block;
         width: 50px;
         height: 25px;
@@ -245,7 +259,7 @@ export default {
         
 
     }
-    .follow span:hover{
+    .follow a:hover{
         background-color: #e64620;
         color: white;
         border: 1px solid rgb(175, 154, 154);
