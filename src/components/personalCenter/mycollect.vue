@@ -44,7 +44,7 @@ export default {
 
       this.$http({
         method:"POST",
-        url:"http://192.168.0.188:9006/user/aritle",
+        url:"http://192.168.43.41:9006/user/aritle",
         headers:{
           "Content-Type": "application/json;charset=urf-8",
           'Authorization':'Bearer '+this.$store.state.token

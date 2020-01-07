@@ -24,7 +24,8 @@
         </div>
         <!-- 回答内容区 -->
         <div class="left_content">
-          <div class="left_content_box" v-for="item in view_responseList" :key="item.id">
+          <skeleton v-show="isLoading"> </skeleton>
+          <div v-show="!isLoading" class="left_content_box" v-for="item in view_responseList" :key="item.id">
             <!-- 有用和回答数区 -->
             <div class="userful_res_num">
               <div class="userful_num">
@@ -39,7 +40,7 @@
             <!-- 问题主要信息区 -->
             <div class="question">
               <div class="res_user">
-                <div class="res_username">{{item.replyname?item.replyname:"前端小狗"}}</div>
+                <div class="res_username">{{item.nickname?item.nickname:"前端小狗"}}</div>
                 <div>{{item.replytime?item.replytime:"三分钟前"}}</div>
               </div>
               <div class="res_question"><router-link :to="'/questionDetail?id='+item.id">{{item.title}}</router-link></div>
@@ -69,7 +70,8 @@
         <!-- 发布问题区 -->
         <div class="submitQuestion">
           <div class="subtitle">今天，有什么好东西要和大家分享么？</div>
-          <div class="subQuestionButton">发布问题</div>
+ 
+          <div class="subQuestionButton" ><a href="#/newPost"  style="color:white; text-decoration: none">发布问题</a></div>
         </div>
         <!-- 热门标签区 -->
         <div class="hottag">
@@ -85,9 +87,14 @@
 </template>
 
 <script>
+import skeleton from '../common/skeleton'
 export default {
   mounted: function() {
+    this.showLoading()
     this.view_responseList = this.new_responseList;
+  },
+  components:{
+    skeleton
   },
   data() {
     return {
@@ -106,6 +113,7 @@ export default {
           name: "JavaScript"
         }
       ],
+      isLoading:true,
       responseTypeList: [
         {
           id: 0,
@@ -225,11 +233,19 @@ export default {
       if(this.activeTypeIndex == 1) this.view_responseList = newVal;
     }
   },
+  
   created () {
     this.getAllLabels();
     this.getnewresponseList();
   },
   methods: {
+
+     showLoading () {
+       this.isLoading = true
+       setTimeout(() => {
+            this.isLoading = false
+      }, 1500);
+     },
     // 改变激活bar
     changeSelectItem(index) {
       this.activeTypeIndex = index;
@@ -238,7 +254,7 @@ export default {
     getAllLabels () {
       this.$http({
         method:"POST",
-        url:"http://192.168.0.188:9004/problem/label",
+        url:"http://192.168.43.41:9004/problem/label",
         headers:{
           'Content-Type':"application/json;charset=utf-8"
         }
@@ -273,7 +289,7 @@ export default {
           }
       this.$http({
          method:"POST",
-         url:"http://192.168.0.188:9004/problem/"+type,
+         url:"http://192.168.43.41:9004/problem/"+type,
          data:{
             "labelid":id==-1?undefined:id
          },
@@ -283,6 +299,7 @@ export default {
       })
       .then((res) => {
         // console.log(res.data.data);
+        this.showLoading()
         this.view_responseList = res.data.data;
           
           
@@ -294,7 +311,7 @@ export default {
         
       // this.$http({
       //   method:"PUT",
-      //   url:"http://192.168.0.188:9005/spit/thumbup/1211605504841879552"
+      //   url:"http://192.168.43.41:9005http://192.168.0.188:9005/thumbup/1211605504841879552"
       // })
     }
   }
@@ -385,6 +402,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  height: fit-content;
   align-items: center;
   justify-content: flex-start;
 }

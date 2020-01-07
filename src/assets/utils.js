@@ -32,12 +32,13 @@ const publicMethod = { //当前时间转成日期格式
        div.style.borderRadius="5px"
        div.style.padding="6px 12px"
        div.style.position="fixed";
-       div.style.right="150px";
+       div.style.left="60px";
        div.style.top="400px";
+       div.style.zIndex="5626465";
        document.body.append(div)
        setTimeout(() => {
          div.parentNode.removeChild(div)
-       }, 3000);
+       }, 1000);
 
      }
     

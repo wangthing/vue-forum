@@ -22,6 +22,8 @@ import axios from 'axios'
 axios.defaults.timeout = 5000 // 请求超时
 // axios.defaults.baseURL = '/api'  // api 即上面 vue.config.js 中配置的地址
 Vue.prototype.$http = axios
+// 配置请求的基准URL地址
+// axios.defaults.baseURL = 'http://192.168.0.188'
 /* wjp */
 
 Vue.config.productionTip = false

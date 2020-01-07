@@ -179,7 +179,7 @@ export default {
     goRegister () {
       this.$http({
         method:"POST",
-        url:`api/user/register/${this.registerform.code}`,
+        url:`http://192.168.43.41:9006/user/register/${this.registerform.code}`,
         data:{
           mobile:this.registerform.mobile,
           loginname:this.registerform.loginname,
@@ -204,14 +204,15 @@ export default {
       return false;
     },
     getCode () {
-      if(this.registerform.mobile.length!=11) {
+      
+      if((''+this.registerform.mobile ).length!= 11) {
         this.showWarning("手机号码格式不正确！")
         return;
       }
       if(this.getCount<60) return;
       this.$http({
         method:"get",
-        url:"api/user/sendsms/"+this.registerform.mobile,
+        url:"http://192.168.43.41:9006/user/sendsms/"+this.registerform.mobile,
       })
       .then((res) => {
         let message = res.data.message
@@ -221,9 +222,9 @@ export default {
               value:60
             }])
             this.$store.commit('countDown')
-        
+             this.showWarning("注册成功！")
           }else{
-            console.log(message);
+            
             this.showWarning(message);
           }
         
@@ -235,7 +236,7 @@ export default {
       this.LoginTips = "登录中。。。"
       this.$http({
         method: "POST",
-        url: 'api/user/login',
+        url: 'http://192.168.43.41:9006/user/login',
         data:{
           loginname:this.loginname,
           password:this.password

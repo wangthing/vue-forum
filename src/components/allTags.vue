@@ -33,7 +33,7 @@ export default {
         getAllTags () {
             this.$http({
                 method:"POST",
-                url:"http://192.168.0.188:9004/problem/label"
+                url:"http://192.168.43.41:9004/problem/label"
             })
             .then((res) => {
                 this.allTagsList = res.data.data
@@ -90,11 +90,12 @@ export default {
     .lists{
         display: flex;
         flex-wrap: wrap;
+        justify-content: flex-start;
     }
     .item{
         width: 24%;
         background-color: white;
-        margin: 16px auto 4px;
+        margin: 16px  8px 0 0;
         margin-left: 0;
         /* margin-right: 8px; */
         /* padding: 4px 12px; */

@@ -12,8 +12,11 @@
                 <div class="title"> <h3>热门文章 </h3></div>
                 <div class="hot-item">
                     <div class="item" v-for="(item,index) in hotArticles" :key="index">
-                        <p>{{item.title}}</p>
-                        <h1 class="author"><img :src="item.avar" alt=""> <span>{{item.nickname}}</span> &nbsp&nbsp&nbsp <span>{{item.time}}</span></h1>
+                       
+                        <p>  <a :href="'#/questionDetail?id='+item.id" target="_blank"  :data-id="item.id"> {{item.title.length>3?item.title:"箭头跟随鼠标移动动画的原理"}}</a>
+                       
+                        </p>
+                        <h1 class="author"><img :src="item.avar?item.avar:'/static/img/widget-photo.png'" alt=""> <span>{{item.nickname}}</span> &nbsp;&nbsp;&nbsp; <span>{{item.updatetime&&(item.updatetime[0]+"年"+item.updatetime[1]+"月"+item.updatetime[2]+"日")}}</span></h1>
                     </div>
                 </div>
                 <a class="check-more">
@@ -22,24 +25,23 @@
             </div>
 
             <!-- 优秀作者 -->
-            <div class="hot-authors">
+            <!-- <div class="hot-authors">
                 <div class="title"> <h3>热门回答 </h3></div>
                 <div class="hot-item">
                     <div class="item" v-for="(item,index) in hotArticles" :key="index">
-                        <p>{{item.title}}</p>
-                        <h1 class="author"><img :src="item.avar" alt=""> <span>{{item.nickname}}</span> &nbsp&nbsp&nbsp <span>{{item.time}}</span></h1>
+                        <p>{{item.title.length>3?item.title:"箭头跟随鼠标移动动画的原理"}}</p>
+                        <h1 class="author"><img :src="item.avar?item.avar:'/static/img/widget-photo.png'" alt=""> <span>{{item.nickname}}</span> &nbsp;&nbsp;&nbsp; <span>{{item.updatetime&&(item.updatetime[0]+"年"+item.updatetime[1]+"月"+item.updatetime[2]+"日")}}</span></h1>
                     </div>
                 </div>
                 <a class="check-more">
                     查看更多
                 </a>
-            </div>
+            </div> -->
               
 
         </div>
         <div >
-            <Catalog>
-            </Catalog>
+            
         </div>
     </div>
 </template>
@@ -52,7 +54,7 @@ export default {
         return {
             activity:[
                 {image:'../../static/img/widget-activity01.png',title:'网易云'},
-                {image:'../../static/img/widget-activity02.png',title:'网易云'},
+                {image:'../../static/img/widget-acti.png',title:'网易云'},
             ],
             hotArticles:[
                 {
@@ -83,10 +85,28 @@ export default {
         }
     },
     mounted () {
-
+        this.getHot()
     },
     methods: {
-        
+        getHot () {
+            this.$http({
+                method:"get",
+                url:"http://192.168.43.41:9004/problem/hot",
+                headers:{
+                    "Content-type":"application/json"
+                }
+            })
+            .then((res) => {
+                console.log(res);
+                if(res.data.code == 20000){
+                    this.hotArticles = res.data.data
+                }else{
+
+                }
+            }).catch((err) => {
+                
+            })
+        }
     },
     components:{
         Catalog
@@ -98,8 +118,11 @@ export default {
 <style scoped>
     /* 右侧图片广告 */
     #right{
-        max-width: 300px;
+        max-width: 400px;
         margin-left: 12px;
+    }
+    #right a {
+        color: black;
     }
     .activity{
         width: 100%;
@@ -133,8 +156,9 @@ export default {
 
     .item{
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
         flex-wrap: wrap;
         padding: 14px 10px;
         
@@ -151,7 +175,7 @@ export default {
         display: flex;
         text-align: left;
         font-size: 8px;
-        
+        display: inline-block;
         justify-content: flex-start;
         align-items: center;
     }

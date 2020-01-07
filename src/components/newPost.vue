@@ -8,10 +8,11 @@
             </div>
             <div :class="'tags' " v-show="showTags" >
                 <h1>发布文章</h1>
-                <h5>分类</h5>
+                <h5>选择分类</h5>
                 <ul class="columns">
                     <li v-for="(item,index) in columns" :key="index" :class="{active:selectedIndex==index}" :data-id="item.id" @click="changeActive(index,item.id)">{{item.name}}</li>
                 </ul>
+                <h1>发布问题</h1>
                 <h5>标签</h5>
                 <input type="text" class="tags-item" v-model="chooseLable" placeholder="请添加一个标签">
                 
@@ -35,6 +36,7 @@
 <script>
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import utils from '../assets/utils.js' 
 export default {
     name:"newPost",
     data () {
@@ -62,21 +64,22 @@ export default {
     },
     methods: {
         submits () {
-            // if(this.chooseColumn == -1) {
-            //     alert("请选择一个分类")
-            //     return;
-            // }
+            
+            if(this.chooseColumn == -1&&labelId=="") {
+                utils.publicMethod.showTips("请选择一个分类")
+                return;
+            }
             let labelId = this.chooseLable;
             let columnId = this.chooseColumn;
             let allLabels = this.$store.state.allLabels
             console.log(this.$store.state.token);
             // return;
-            if(columnId!=-1){
+            if(columnId!=-1 && labelId==""){
                 console.log(this.$store.state.token);
                 // 发布专栏
                  this.$http({
                     method:"post",
-                    url:"http://192.168.0.188:9001/article",
+                    url:"http://192.168.43.41:9001/article",
                     headers:{
                         'Content-Type': 'application/json;charset=UTF-8',
                         'Authorization':'Bearer '+this.$store.state.token
@@ -91,18 +94,23 @@ export default {
                 .then((res) => {
                     
                     if(res.data.code == 20000) {
-                        alert("发布成功！")
-                        top.location.reload()
+                        utils.publicMethod.showTips("发布成功！")
+                        setTimeout(() => {
+                            this.$destroy()
+                            this.$router.push('/')
+                           
+                            
+                        }, 1200);
                     }
                 }).catch((err) => {
                     
                 })
-            }else if(labelId!=""){
-                console.log(this.$store.state.token);
+            }else if(labelId!="" && columnId==-1){
+                
                 // 发布问答
                 this.$http({
                     method:"post",
-                    url:"http://192.168.0.188:9004/problem",
+                    url:"http://192.168.43.41:9004/problem",
                     headers:{
                         'Content-Type': 'application/json;charset=UTF-8',
                         'Authorization':'Bearer '+this.$store.state.token
@@ -122,13 +130,18 @@ export default {
                     }
                 })
                 .then((res) => {
-                    console.log(result);
+                    
                     if(res.data.code == 20000) {
-                        alert("发布成功！")
-                        top.location.reload()
+                        
+                        utils.publicMethod.showTips("发布成功！")
+                        setTimeout(() => {
+                            this.$destroy()
+                            this.$router.push('/')
+                            
+                        }, 1200);
                     }
                 }).catch((err) => {
-                    
+                    utils.publicMethod.showTips(err)
                 })
             }
 
@@ -137,7 +150,7 @@ export default {
         getAllLabels () {
             this.$http({
                 method:"POST",
-                url:"http://192.168.0.188:9004/problem/label",
+                url:"http://192.168.43.41:9004/problem/label",
                 headers:{
                 'Content-Type':"application/json;charset=utf-8"
                 }
@@ -160,7 +173,7 @@ export default {
         getAllColumns () {
             this.$http({
                 method:"GET",
-                url:"http://192.168.0.188:9001/column",
+                url:"http://192.168.43.41:9001/column",
 
             })
             .then( (res) => {

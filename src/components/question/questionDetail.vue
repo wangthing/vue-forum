@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import utils from '../../assets/utils.js'
+import utils from '../../assets/utils.js'  
 import Right from '../right'
 export default {
     name:"questionDetail",
@@ -87,7 +87,7 @@ export default {
     mounted () {
         this.$http({
             method:'get',
-            url:"http://192.168.0.188:9004/problem/"+this.$route.query.id,
+            url:"http://192.168.43.41:9004/problem/"+this.$route.query.id,
             headers:{
                  'Content-Type':"application/json;charset=utf-8"
             }
@@ -108,7 +108,7 @@ export default {
 
             this.$http({
                 method:"GET",
-                url:`http://192.168.0.188:9004/reply/${this.$route.query.id}`,
+                url:`http://192.168.43.41:9004/reply/${this.$route.query.id}`,
                 headers:{
                     "Content-Type":"application/json;charset=utf-8"
                 }
@@ -134,7 +134,7 @@ export default {
             }
             this.$http({
                 method:"POST",
-                url:"http://192.168.0.188:9004/reply",
+                url:"http://192.168.43.41:9004/reply",
                 headers:{
                     'Content-Type':"application/json;charset=utf-8",
                     'Authorization':'Bearer '+this.$store.state.token
@@ -150,9 +150,10 @@ export default {
                 if(res.data.code == 20000){
                     this.yourComment = ""
                     this.getAllSplits();
+                     utils.publicMethod.showTips("发布成功！")
                 }
             }).catch((err) => {
-                
+                utils.publicMethod.showTips(err)
             })
         }
     },

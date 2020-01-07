@@ -1,13 +1,14 @@
 <template>
     <div id="article">
-        <div class="article-item" v-for="(item,index) in articles" :key="index">
+        <skeleton v-show="isLoading"></skeleton>
+        <div v-show="!isLoading" class="article-item" v-for="(item,index) in articles" :key="index">
             <div class="content">
                
                 <div class="top">
                     <div class="author">
                         <!-- <div class="avar"><img :src="item.avar" alt=""></div> -->
                         <div class="author-info">
-                            <h5 >{{item.nickname?item.nickname:"林_小猫"}}<span class="time">{{item.createtime}}   阅读{{item.visit}}</span></h5>
+                            <h5 >{{item.nickname?item.nickname:"王俊平"}}<span class="time">{{item.createtime}}   阅读{{item.visit}}</span></h5>
                         </div>
                        
                     
@@ -33,10 +34,12 @@
 </template>
 
 <script>
+import skeleton from './common/skeleton'
 export default {
     name:"article",
     data () {
         return{
+            isLoading:true,
             articles:[]
             // articles:[
             //     {
@@ -83,107 +86,25 @@ export default {
             //         avar:'../../static/img/widget-widget-photo.png',
             //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
             //     },
-            //      {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         visit:2452,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     },
-            //      {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         visit:2452,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     },
-            //     {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         visit:2452,
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     },
-            //      {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         visit:2452,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     },
-            //      {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         visit:2452,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     },
-            //     {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         visit:2452,
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     },
-            //      {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         visit:2452,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     },
-            //      {
-            //         title:'Drive.ai融资5000万吴恩达加入董事会',
-            //         releasetime:'6月22日 12:01',
-            //         nickname:'Closer',
-            //         id:25,
-            //         thumbup:532,
-            //         comments:124,
-            //         visit:2452,
-            //         avar:'../../static/img/widget-widget-photo.png',
-            //         description:`滴滴与360都开源了各自的插件化框架，VirtualAPK与RePlugin`
-            //     }
+          
             // ]
         }
     },
     mounted () {
-       
+       this.showLoading()
         this.getAllArticles()
     },
     methods: {
-
+        showLoading () {
+            this.isLoading = true
+            setTimeout(() => {
+                    this.isLoading = false
+            }, 1500);
+        },
         getAllArticles () {
             this.$http({
                 method:"GET",
-                url:"http://192.168.0.188:9001/article/search/1/10"
+                url:"http://192.168.43.41:9001/article/search/1/50"
             })
             .then((res) => {
                 console.log(res.data.data.rows);
@@ -194,11 +115,18 @@ export default {
             })
         }
     },
+    components:{
+        skeleton
+    }
 
 }
 </script>
 
 <style scoped>
+#article{
+    height: fit-content;
+    margin-top: 14px;
+}
     .content{
          padding: 20px 20px;
          background-color: white;

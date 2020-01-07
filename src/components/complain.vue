@@ -7,7 +7,8 @@
                 <a class="goComplain" @click.prevent="releaseSpit">发吐槽</a>
              </div>
             <div class="lists">
-                    <div class="article-item" v-for="(item,index) in getAllArricles" :data-id="item._id" :key="index">
+                    <skeleton v-show="isLoading"></skeleton>
+                    <div v-show="!isLoading" class="article-item" v-for="(item,index) in getAllArricles" :data-id="item._id" :key="index">
                         <div class="content">
                         
                             <div class="top">
@@ -26,7 +27,7 @@
                             <div class="bottom">
                                 <span :href="'#/detail?id='+item._id" target="_blank"  :data-id="item.id">{{item.content}}</span>
                                 <div class="">
-                                    <span>
+                                    <span @click="thumbup(item)">
                                         <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp;{{" "+item.thumbup?item.thumbup:Math.floor(Math.random()*102)}}
                                     </span>
                                     <span @click="showComment(item)" >
@@ -67,7 +68,7 @@
                         
                     </div>
                     <div class="show-more" v-if="(page<total)">
-                        <div @click="showmore">加载更多</div>
+                        <div @click="showmore" v-show="!isLoading">加载更多</div>
                     </div>
             </div>
             
@@ -80,6 +81,7 @@
 <script>
 import utils from '../assets/utils.js'
 import Right from './right'
+import skeleton from './common/skeleton'
 export default {
     name:"complain",
     data () {
@@ -105,6 +107,7 @@ export default {
             youSpit:'',
             allComments:[],
             yourComment:'',
+            isLoading:true
         }
     },
     computed: {
@@ -131,11 +134,12 @@ export default {
             }
             this.$http({
                 method:"get",
-                url:`http://192.168.0.188:9005/spit/search/${this.page}/${this.size}`,
+                url:`http://192.168.43.41:9005/spit/search/${this.page}/${this.size}`,
 
             })
             .then((res) => {
                  let data = res.data.data
+                 console.log(data);
                  this.total = data.total
                  
                 if(type) {
@@ -143,11 +147,9 @@ export default {
                 }else{
                     this.page=1
                     this.articles=data.rows
+                    // this.isLoading = false
                 }
                
-                
-               
-                
             }).catch((err) => {
                 
             })
@@ -163,7 +165,7 @@ export default {
             if(this.youSpit == "") return;
             this.$http({
                 method:"POST",
-                url:"http://192.168.0.188:9005/spit",
+                url:"http://192.168.43.41:9005/spit",
                 headers:{
                     "Content-Type":"application/json;charset=utf-8",
                     'Authorization':'Bearer '+this.$store.state.token
@@ -201,7 +203,7 @@ export default {
             }
             this.$http({
                 method:"POST",
-                url:"http://192.168.0.188:9005/spit",
+                url:"http://192.168.43.41:9005/spit",
                 headers:{
                     'Content-Type':"application/json;charset=utf-8",
                     'Authorization':'Bearer '+this.$store.state.token
@@ -217,8 +219,11 @@ export default {
                 if(res.data.code == 20000){
                     item.commentInfo.yourComment = ""
                     this.getAllSpitComments(item);
+                     utils.publicMethod.showTips("发布成功！")
+                }else{
+                        utils.publicMethod.showTips(res.data.message)
                 }
-                utils.publicMethod.showTips("发布成功！")
+               
             }).catch((err) => {
                 
             })
@@ -226,7 +231,7 @@ export default {
         getAllSpitComments (item) {
             this.$http({
                 method:"GET",
-                url:"http://192.168.0.188:9005/spit/comment/"+item._id,
+                url:"http://192.168.43.41:9005/spit/comment/"+item._id,
                  headers:{
                     'Content-Type':"application/json;charset=utf-8",
                     
@@ -243,16 +248,39 @@ export default {
             }).catch((err) => {
                 
             })
+        },
+        thumbup (item) {
+            
+            this.$http({
+                method:"PUT",
+                url:"http://192.168.43.41:9005/spit/thumbup/"+item._id,
+                headers:{
+                     "Content-Type":"application/json;charset=utf-8",
+                    'Authorization':'Bearer '+this.$store.state.token
+                }
+            })
+            .then((res) => {
+                 utils.publicMethod.showTips(res.data.message)
+                 if(res.data.code == 20000) {
+                     item.thumbup++
+                 }
+            }).catch((err) => {
+                
+            })
         }
     },
     mounted() {
         this.getAllSpit()
+        setTimeout(() => {
+            this.isLoading = false
+        }, 1500);
     },
     created () {
         
     },
     components:{
-        Right
+        Right,
+        skeleton
     }
 }
 </script>
@@ -320,8 +348,10 @@ export default {
     }
     .container{
         width:80%;
+        max-width: 960px;
         margin-right: 0;
         display:flex;
+        height: fit-content;
         justify-content: center;
         flex-wrap: wrap;
     }

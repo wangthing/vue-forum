@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="attention_box" v-for="item in myAttentionList" :key="item.id">
+     <skeleton v-if="isLoading"></skeleton>
+    <div v-if="!isLoading" class="attention_box" v-for="item in myAttentionList" :key="item.id">
       <div class="question_left">
         <div class="questionName">{{item.qquestionName}}</div>
         <div class="relatedTech">
@@ -20,6 +21,7 @@
   </div>
 </template>
 <script>
+import skeleton from '../common/skeleton'
 export default {
   data() {
     return {
@@ -184,8 +186,23 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      isLoading:true
     };
+  },
+  mounted () {
+    this.showLoading()
+  },
+  methods:{
+     showLoading () {
+        this.isLoading = true
+        setTimeout(() => {
+                this.isLoading = false
+        }, 1500);
+    },
+  },
+  components:{
+    skeleton
   }
 };
 </script>

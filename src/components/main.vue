@@ -55,7 +55,7 @@ export default {
             tagsIndex:0,
             
             slideImages:[
-                {image:'../../static/img/page-banner.png',title:"每年"},
+                {image:'../../static/img/img001.png',title:"每年"},
                 {image:'../../static/img/widget-activity02.png',title:"每年"},
                 {image:'../../static/img/widget-activity2.png',title:"每年"}
                
@@ -78,6 +78,8 @@ export default {
     },
     mounted () {
         document.getElementById("catalog")&&(document.getElementById("catalog").style.display = "none")
+        document.getElementById("footer").style.display = "block"
+        document.getElementById("header").style.display = "block"
     },
     created () {
         this.getAllNavs()
@@ -95,7 +97,7 @@ export default {
         getAllNavs () {
             this.$http({
                 method:"GET",
-                url:"http://192.168.0.188:9001/column"
+                url:"http://192.168.43.41:9001/column"
             })
             .then((result) => {
                 console.log(result); 

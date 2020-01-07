@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="answer_item" v-for="item in myanswer" :key="item.id">
-      <div class="item usefulNum">
+    <skeleton v-if="isLoading"></skeleton>
+    <div v-if="!isLoading"  class="answer_item" v-for="item in myanswer" :key="item.id">
+      <div  class="item usefulNum">
         {{item.usefulNum}}
         <span class="usefont">有用</span>
       </div>
@@ -12,7 +13,9 @@
 </template>
 
 <script>
+import skeleton from '../common/skeleton'
 export default {
+  
   name: "myanswer",
   data() {
     return {
@@ -29,18 +32,26 @@ export default {
           title: "有关PHP初级进阶问题",
           date: "4月6日"
         }
-      ]
+      ],
+      isLoading:true
     };
   },
   mounted () {
+    this.showLoading()
     this.getMyActivity()
   },
   methods: {
+    showLoading () {
+        this.isLoading = true
+        setTimeout(() => {
+                this.isLoading = false
+        }, 1500);
+    },
     getMyActivity () {
 
       this.$http({
         method:"POST",
-        url:"http://192.168.0.188:9006/user/aritle",
+        url:"http://192.168.43.41:9006/user/aritle",
         headers:{
           "Content-Type": "application/json;charset=urf-8",
           'Authorization':'Bearer '+this.$store.state.token
@@ -62,6 +73,9 @@ export default {
       })
     }
   },
+  components:{
+    skeleton
+  }
 };
 </script>
 <style>

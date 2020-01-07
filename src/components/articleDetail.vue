@@ -4,8 +4,8 @@
             <div class="author">
                 <div class="avar"><img src='../../static/img/widget-widget-photo.png' alt=""></div>
                 <div class="author-info">
-                    <h5 >Closer</h5>
-                    <h5 class="time">6月22日 12:01  阅读  2354</h5>
+                    <h5 >{{user.nickname}}</h5>
+                    <h5 class="time">{{user.updatetime&&(user.updatetime[0]+"年"+user.updatetime[1]+"月"+user.updatetime[2]+"日"+user.updatetime[3]+"时")}}  阅读  2354</h5>
                 </div>
                 
             
@@ -31,6 +31,7 @@ export default {
     data () {
         return {
             htmlMd:"",
+            user:""
         }
     },
     mounted () {
@@ -41,15 +42,13 @@ export default {
             var that = this
             this.$http({
                 method:"GET",
-                url:`http://192.168.0.188:9001/article/`+ this.$route.query.id,
+                url:`http://192.168.43.41:9001/article/`+ this.$route.query.id,
                 headers:{
                     "Content-type":"application/json"
                 }
             })
             .then( (res) => {
-                
-                
-                
+                    this.user = res.data.data
                 return new Promise(function (resolve,reject) {
                     that.htmlMd = res.data.data.content;
                     resolve()
@@ -69,18 +68,20 @@ export default {
 <style scoped>
     
     #articleDetail{
-        width: 700px;
+        width: 100%;
+        max-width: 780px;
         margin: 0 auto;
         padding: 16px 20px;
         background-color: #fff;
         text-align: left;
+        height: fit-content;
     }
     .top{
         display: flex;
         width: 100%;
         margin-bottom: 6px;
         justify-content: space-between;
-        align-items: center;
+        align-users: center;
         margin: 12px 0 20px 0;
     }
     .author{
@@ -91,7 +92,7 @@ export default {
         text-align: left;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-users: flex-start;
         text-align: left;
         flex-flow: column;
         flex-wrap: wrap;

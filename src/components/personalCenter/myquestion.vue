@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="question_item" v-for="item in myquestion" :key="item.id">
+    <skeleton v-if="isLoading"></skeleton>
+    <div v-if="!isLoading" class="question_item" v-for="item in myquestion" :key="item.id">
       <div class="item usefulNum">
         {{item.usefulNum}}
         <span class="usefont">有用</span>
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import skeleton from '../common/skeleton'
 export default {
   name: "myquestion",
   data() {
@@ -29,16 +31,24 @@ export default {
           title: "有关PHP初级进阶问题",
           date: "4月6日"
         }
-      ]
+      ],
+      isLoading:true
     };
   },
   mounted () {
-    this.getMyQuestion()
+    this.getMyQuestion(),
+    this.showLoading()
   },
   methods: {
+     showLoading () {
+        this.isLoading = true
+        setTimeout(() => {
+                this.isLoading = false
+        }, 1500);
+    },
      getMyQuestion () {
       this.$http({
-        url:'http://192.168.0.188:9006/user/qa',
+        url:'http://192.168.43.41:9006/user/qa',
         method:'post',
         headers:{
           "Content-Type":"application/json;charset=tf-8",
@@ -58,6 +68,9 @@ export default {
       })  
     }
   },
+  components:{
+    skeleton
+  }
  };
 </script>
 <style>

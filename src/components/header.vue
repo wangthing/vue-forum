@@ -5,7 +5,7 @@
                 <div class="container">
                     <div class="navbar-inner">
                         <a href="#">
-                            <img src="../../static/img/asset-logo-black.png" alt="">
+                            <img src="../../static/img/asset-logo-black1.png" alt="">
                         </a>
                         <ul class="nav-list">
                             <li class="nav-class-list">
@@ -63,7 +63,7 @@ export default {
             isLogin:this.getUserState,
             stopScroll:false,
             timer:null,
-            selectIndex:1
+            selectIndex:0
         }
     },
     created() {
@@ -218,6 +218,8 @@ export default {
     /* 中间的分类  首页  交友 */
     .nav-class-list ul a{
         color: black;
+        display: inline-block;
+        height: 100%;
     }
     .nav-class-list ul{
         display:flex;
@@ -235,6 +237,9 @@ export default {
     .nav-class-list ul li.active a{
         font-weight: bold;
         color: #e64620 !important;
+        display: inline-block;
+        width: 100%;
+        padding: 0 4px;
     }
     /* 搜索框 */
     .search-input{

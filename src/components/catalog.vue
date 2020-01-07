@@ -1,5 +1,5 @@
 <template>
-    <div id="catalog" :class="{'sticky':ifsticky}" v-show="!!titles[0]">
+    <div id="catalog" :class="{'sticky':ifsticky}" v-show="titles[0]">
         <ul class="H1">
             <h1>目录</h1>
             <li v-for="(item, index) in titles" :key="index"><h1 @click="show" :data-id="item.id">{{++index+". "+item.text}}</h1>
@@ -41,6 +41,7 @@ export default {
         
 
          bus.$on('getmd',res => {
+             
                 this.initCatalog(res.children)
          })
        
@@ -57,7 +58,7 @@ export default {
         initCatalog (titles) {
             
             var arr  = Array.prototype.slice.call(titles)
-            
+            console.log( arr);
             function Find(item) {
                 var res;               
                 res={id:item.innerHTML.split('id=')[1].split("\"")[1],text:item.innerText}
@@ -74,7 +75,7 @@ export default {
 
             let H2 =[];
             arr.filter(item => {
-                return item.nodeName == "H2" 
+                return item.nodeName == "H2" || "H3"
             }).forEach( item => {
                 H2.push(Find(item))
             });
@@ -97,6 +98,7 @@ export default {
             
             
             this.titles = H2;
+            
         },
         show (e) {
             // 跳转到特定的Id标题
@@ -114,7 +116,7 @@ export default {
             let cookieValue = null;
 
             if (document.cookie && document.cookie !== '') {
-                let cookies = document.cookie.split(';');
+                let cookies = document.cookie&&document.cookie.split(';');
                 for (let i = 0; i < cookies.length; i++) {
                     let cookie = cookies[i].trim();
                     // 判断这个cookie的参数名是不是我们想要的
@@ -155,7 +157,7 @@ export default {
         },
         handScroll (e ) {
              
-            
+            // console.log("object");
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop// 滚动条距离顶部的距离
             let flag =  this.getCatalogTop- scrollTop;
             // console.log(this.catalogTop,scrollTop);

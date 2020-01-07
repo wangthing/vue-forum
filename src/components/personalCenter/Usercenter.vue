@@ -5,7 +5,7 @@
       <div class="userInf">
         <div class="headPhoto"></div>
         <div class="username">
-          <p>{{username}}</p>
+          <p>{{userinfo.nickname}}</p>
           <h3>你是从事什么职业</h3>
           <h3>你的个人介绍</h3>
         </div>
@@ -96,7 +96,7 @@ export default {
       udbar: [
         {
           id: 0,
-          title: "我的回答",
+          title: "我的文章",
           routeName: "myanswer",
           num: 0
         },
@@ -130,7 +130,8 @@ export default {
           routeName: "mysetting",
           num: 0
         }
-      ]
+      ],
+      userinfo:''
     };
   },
   
@@ -142,7 +143,7 @@ export default {
     getUSerInfo () {
       this.$http({
         method:"get",
-        url:"http://192.168.0.188:9006/user",
+        url:"http://192.168.43.41:9006/user",
         headers:{
           "Content-Type":"application/json;charset=utf-8"
         }
@@ -169,6 +170,12 @@ export default {
       this.$router.push("myanswer")
     }
     
+  },
+  computed : {
+    USerInfo() {
+      
+      return this.$store.state.userinfo
+    }
   }
  
   
